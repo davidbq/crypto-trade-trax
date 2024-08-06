@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-import plotly.graph_objects as plotly_go
+import plotly.graph_objects as go
 import plotly.express as px
 from typing import List, Any
 
@@ -38,18 +38,17 @@ def build_main_df(raw_data: List) -> pd.DataFrame:
 
     return df
 
-def plot_table(data: pd.DataFrame, title: str) -> None:
-    row_labels = data.index.tolist()
-    table_data = [data[col].tolist() for col in data.columns]
-    fig = plotly_go.Figure(data=[plotly_go.Table(
-        header=dict(values=[''] + list(data.columns),
-                    fill_color='paleturquoise',
-                    align='left'),
-        cells=dict(values=[row_labels] + table_data,
-                   fill_color='lavender',
-                   align='left'))
+def plot_table(df_data: pd.DataFrame, title: str) -> None:
+    aux_data = df_data.reset_index()
+    fig = go.Figure(data=[go.Table(
+        header=dict(values=list(aux_data.columns),
+            fill_color='#3A416C',
+            font=dict(color='white'),
+            align='left'),
+        cells=dict(values=[aux_data[col].tolist() for col in aux_data.columns],
+            fill=dict(color=[['#f5f5f5' if i % 2 == 0 else '#ffffff' for i in range(len(aux_data))]]),
+            align='left'))
     ])
-
     fig.update_layout(title_text=title, title_x=0.5)
     fig.show()
 
@@ -71,12 +70,11 @@ def extract_top_n_similarities(df_cosine_sim: pd.DataFrame, top_n: int) -> pd.Se
     return df_cosine_sim.unstack().sort_values(ascending=False).head(top_n)
 
 def plot_top_week_similarities(df_weekly_data: pd.DataFrame, top_similarities: pd.Series) -> None:
+    df_plot_data = df_weekly_data.reset_index().melt(id_vars='Week Number', var_name='Day of Week', value_name='Percent Change')
     for ((week1, week2), similarity) in top_similarities.items():
-        plot_data = df_weekly_data.reset_index()
-        plot_data = plot_data.melt(id_vars='Week Number', var_name='Day of Week', value_name='Percent Change')
-        plot_data = plot_data[(plot_data['Week Number'] == week1) | (plot_data['Week Number'] == week2)]
+        df_filtered = df_plot_data[(df_plot_data['Week Number'] == week1) | (df_plot_data['Week Number'] == week2)]
         fig = px.line(
-            plot_data,
+            df_filtered,
             x='Day of Week',
             y='Percent Change',
             color='Week Number',
