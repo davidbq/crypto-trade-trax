@@ -44,11 +44,13 @@ def plot_table(df_data: pd.DataFrame, title: str) -> None:
         header=dict(values=list(aux_data.columns),
             fill_color='#3A416C',
             font=dict(color='white'),
-            align='left'),
+            align=['left','center'],
+        ),
         cells=dict(values=[aux_data[col].tolist() for col in aux_data.columns],
             fill=dict(color=[['#f5f5f5' if i % 2 == 0 else '#ffffff' for i in range(len(aux_data))]]),
-            align='left'))
-    ])
+            align=['left','center'],
+        )
+    )])
     fig.update_layout(title_text=title, title_x=0.5)
     fig.show()
 
