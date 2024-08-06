@@ -11,7 +11,7 @@ from typing import List, Any
 DATA_FETCH_START_DATE = '2024-01-01'
 INTERVAL = '1d'
 DATA_FETCH_END_DATE = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d') # 1 day ago
-WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+# Dataframe Columns
 DAY_OF_WEEK = 'Day of Week'
 WEEK_NUMBER = 'Week Number'
 OPEN_PRICE = 'Open Price'
@@ -63,11 +63,13 @@ def plot_table(df_data: pd.DataFrame, title: str) -> None:
 
 def build_weekly_metrics_df(df_main_data: pd.DataFrame) -> pd.DataFrame:
     df = df_main_data.copy()
+
     df[DAY_OF_WEEK] = df.index.day_name()
     df[WEEK_NUMBER] = df.index.isocalendar().week
     df[PERCENT_CHANGE] = ((df[CLOSE_PRICE] - df[OPEN_PRICE]) / df[OPEN_PRICE]) * 100
     df = df.pivot_table(index=WEEK_NUMBER, columns=DAY_OF_WEEK, values=PERCENT_CHANGE)
-    return df[WEEK_DAYS]
+    day_of_week_names = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    return df[day_of_week_names]
 
 def build_cosine_sim_df(df_weekly_data: pd.DataFrame) -> pd.DataFrame:
     cosine_sim_matrix = cosine_similarity(df_weekly_data.fillna(0))
