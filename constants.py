@@ -1,0 +1,4 @@
+SYMBOLS = {
+    'BTC_USDT': 'BTCUSDT',
+    'FET_USDT': 'FETUSDT'
+}
