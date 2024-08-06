@@ -12,6 +12,11 @@ DATA_FETCH_START_DATE = '2024-01-01'
 INTERVAL = '1d'
 DATA_FETCH_END_DATE = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d') # 1 day ago
 WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+DAY_OF_WEEK = 'Day of Week'
+WEEK_NUMBER = 'Week Number'
+OPEN_PRICE = 'Open Price'
+CLOSE_PRICE = 'Close Price'
+PERCENT_CHANGE = 'Percent Change'
 
 def fetch_historical_data(symbol: str, interval: str, start_date: str, end_date: str) -> List[List[Any]]:
     binance_client = get_binance_client()
@@ -22,13 +27,13 @@ def fetch_historical_data(symbol: str, interval: str, start_date: str, end_date:
         return []
 
 def build_main_df(raw_data: List) -> pd.DataFrame:
-    columns_names = ['Start Time', 'Open Price', 'High Price', 'Low Price', 'Close Price', 'Volume', 'Close Time']
+    columns_names = ['Start Time', OPEN_PRICE, 'High Price', 'Low Price', CLOSE_PRICE, 'Volume', 'Close Time']
     column_indices = [0, 1, 2, 3, 4, 5, 6]
 
     cleaned_data = [[entry[i] for i in column_indices] for entry in raw_data]
     df = pd.DataFrame(cleaned_data, columns=columns_names)
 
-    for col in ['Open Price', 'High Price', 'Low Price', 'Close Price', 'Volume']:
+    for col in [OPEN_PRICE, 'High Price', 'Low Price', CLOSE_PRICE, 'Volume']:
         df[col] = df[col].astype(float)
 
     df['Start Time'] = pd.to_datetime(df['Start Time'], unit='ms')
@@ -39,15 +44,17 @@ def build_main_df(raw_data: List) -> pd.DataFrame:
     return df
 
 def plot_table(df_data: pd.DataFrame, title: str) -> None:
+    blue = '#3A416C'
+    grey = '#f5f5f5'
     aux_data = df_data.reset_index()
     fig = go.Figure(data=[go.Table(
         header=dict(values=list(aux_data.columns),
-            fill_color='#3A416C',
+            fill_color=blue,
             font=dict(color='white'),
             align=['left','center'],
         ),
         cells=dict(values=[aux_data[col].tolist() for col in aux_data.columns],
-            fill=dict(color=[['#f5f5f5' if i % 2 == 0 else '#ffffff' for i in range(len(aux_data))]]),
+            fill=dict(color=[[grey if i % 2 == 0 else 'white' for i in range(len(aux_data))]]),
             align=['left','center'],
         )
     )])
@@ -56,10 +63,10 @@ def plot_table(df_data: pd.DataFrame, title: str) -> None:
 
 def build_weekly_metrics_df(df_main_data: pd.DataFrame) -> pd.DataFrame:
     df = df_main_data.copy()
-    df['Day of Week'] = df.index.day_name()
-    df['Week Number'] = df.index.isocalendar().week
-    df['Percent Change'] = ((df['Close Price'] - df['Open Price']) / df['Open Price']) * 100
-    df = df.pivot_table(index='Week Number', columns='Day of Week', values='Percent Change')
+    df[DAY_OF_WEEK] = df.index.day_name()
+    df[WEEK_NUMBER] = df.index.isocalendar().week
+    df[PERCENT_CHANGE] = ((df[CLOSE_PRICE] - df[OPEN_PRICE]) / df[OPEN_PRICE]) * 100
+    df = df.pivot_table(index=WEEK_NUMBER, columns=DAY_OF_WEEK, values=PERCENT_CHANGE)
     return df[WEEK_DAYS]
 
 def build_cosine_sim_df(df_weekly_data: pd.DataFrame) -> pd.DataFrame:
@@ -72,16 +79,16 @@ def extract_top_n_similarities(df_cosine_sim: pd.DataFrame, top_n: int) -> pd.Se
     return df_cosine_sim.unstack().sort_values(ascending=False).head(top_n)
 
 def plot_top_week_similarities(df_weekly_data: pd.DataFrame, top_similarities: pd.Series) -> None:
-    df_plot_data = df_weekly_data.reset_index().melt(id_vars='Week Number', var_name='Day of Week', value_name='Percent Change')
+    df_plot_data = df_weekly_data.reset_index().melt(id_vars=WEEK_NUMBER, var_name=DAY_OF_WEEK, value_name=PERCENT_CHANGE)
     for ((week1, week2), similarity) in top_similarities.items():
-        df_filtered = df_plot_data[(df_plot_data['Week Number'] == week1) | (df_plot_data['Week Number'] == week2)]
+        df_filtered_data = df_plot_data[(df_plot_data[WEEK_NUMBER] == week1) | (df_plot_data[WEEK_NUMBER] == week2)]
         fig = px.line(
-            df_filtered,
-            x='Day of Week',
-            y='Percent Change',
-            color='Week Number',
+            df_filtered_data,
+            x=DAY_OF_WEEK,
+            y=PERCENT_CHANGE,
+            color=WEEK_NUMBER,
             title=f'Cosine Similarity: {similarity:.2f} (Week {week1} vs Week {week2})',
-            labels={'Day of Week': 'Day of Week', 'Percent Change': 'Percent Change'},
+            labels={DAY_OF_WEEK: DAY_OF_WEEK, PERCENT_CHANGE: PERCENT_CHANGE},
             line_shape='linear',
             markers=True
         )
