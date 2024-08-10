@@ -8,7 +8,7 @@ from constants import FETCH_DATA, SYMBOLS
 _HISTORICAL_START_DATE = FETCH_DATA['HISTORICAL_START_DATE']
 _RECENT_START_DATE = get_six_months_ago_monday()
 _END_DATE = get_yesterday_date()
-_INTERVAL = FETCH_DATA['_INTERVAL']
+_INTERVAL = FETCH_DATA['INTERVAL']
 _BINANCE_COLUMNS = FETCH_DATA['BINANCE_COLUMNS']
 
 def raw_data_to_csv(data: List, file_name: str) -> None:
