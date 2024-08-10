@@ -1,0 +1,3 @@
+from binance_data_to_csv import binance_data_to_csv
+
+binance_data_to_csv()
