@@ -52,7 +52,7 @@ FETCH_DATA = {
     ]
 }
 
-DATA_PATH = {
+CSV_PATHS = {
   'FET_HISTORICAL': 'data/fet_historical_data.csv',
   'FET_RECENT': 'data/fet_recent_data.csv',
   'BTC_HISTORICAL': 'data/btc_historical_data.csv',
