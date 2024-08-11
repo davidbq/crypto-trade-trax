@@ -37,7 +37,7 @@ def standardize_data(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-def load_csv_data(file_path: str, drop_columns=True, standardize=True) -> pd.DataFrame:
+def load_csv_data(file_path: str, drop_columns: bool=True, standardize: bool = True) -> pd.DataFrame:
     df = create_df_from_csv(file_path)
 
     if drop_columns:
