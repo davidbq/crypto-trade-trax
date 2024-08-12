@@ -53,10 +53,10 @@ FETCH_DATA = {
 }
 
 CSV_PATHS = {
-  'FET_HISTORICAL': 'data/fet_historical_data.csv',
-  'FET_RECENT': 'data/fet_recent_data.csv',
   'BTC_HISTORICAL': 'data/btc_historical_data.csv',
   'BTC_RECENT': 'data/btc_recent_data.csv',
+  'FET_HISTORICAL': 'data/fet_historical_data.csv',
+  'FET_RECENT': 'data/fet_recent_data.csv',
 }
 
 MODEL_PATHS = {
