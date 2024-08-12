@@ -24,25 +24,29 @@ def create_df_from_csv(file_path: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 def drop_unused_columns(df: pd.DataFrame) -> pd.DataFrame:
-    return df.drop(columns=COLUMNS_TO_REMOVE, inplace=True)
+    df.drop(columns=COLUMNS_TO_REMOVE, inplace=True)
+    return df
 
-def standardize_data(df: pd.DataFrame) -> pd.DataFrame:
+def standardize_data(df: pd.DataFrame, convert_dates: bool = True) -> pd.DataFrame:
+    df.replace('', pd.NA, inplace=True)
+    df.dropna(inplace=True)
+
     for col in COLUMNS_FLOAT:
         df[col] = df[col].astype(float)
 
     for col in COLUMNS_DATE:
-        df[col] = pd.to_datetime(df[col], unit=MS_UNIT)
+        if convert_dates:
+            df[col] = pd.to_datetime(df[col], unit=MS_UNIT)
+        else:
+            df[col] = df[col].astype(int)
 
     df.set_index(OPEN_TIME, inplace=True)
 
     return df
 
-def load_csv_data(file_path: str, drop_columns: bool=True, standardize: bool = True) -> pd.DataFrame:
+def load_csv_data(file_path: str, convert_dates: bool = True) -> pd.DataFrame:
     df = create_df_from_csv(file_path)
-
-    if drop_columns:
-        df = drop_unused_columns(df)
-    if standardize:
-        df = standardize_data(df)
+    df = drop_unused_columns(df)
+    df = standardize_data(df, convert_dates)
 
     return df
