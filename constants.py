@@ -58,3 +58,30 @@ CSV_PATHS = {
   'BTC_HISTORICAL': 'data/btc_historical_data.csv',
   'BTC_RECENT': 'data/btc_recent_data.csv',
 }
+
+MODEL_PATHS = {
+    'BTC_HISTORICAL': {
+        'OPX_DTREE_NO_HP_OPT': 'models/btc_hist_opx_dtree_no_hp_opt.joblib',
+        'OPX_DTREE_WITH_HP_OPT': 'models/btc_hist_opx_dtree_with_hp_opt.joblib',
+        'CPX_DTREE_NO_HP_OPT': 'models/btc_hist_cpx_dtree_no_hp_opt.joblib',
+        'CPX_DTREE_WITH_HP_OPT': 'models/btc_hist_cpx_dtree_with_hp_opt.joblib'
+    },
+    'BTC_RECENT': {
+        'OPX_DTREE_NO_HP_OPT': 'models/btc_rcnt_opx_dtree_no_hp_opt.joblib',
+        'OPX_DTREE_WITH_HP_OPT': 'models/btc_rcnt_opx_dtree_with_hp_opt.joblib',
+        'CPX_DTREE_NO_HP_OPT': 'models/btc_rcnt_cpx_dtree_no_hp_opt.joblib',
+        'CPX_DTREE_WITH_HP_OPT': 'models/btc_rcnt_cpx_dtree_with_hp_opt.joblib'
+    },
+    'FET_HISTORICAL': {
+        'OPX_DTREE_NO_HP_OPT': 'models/fet_hist_opx_dtree_no_hp_opt.joblib',
+        'OPX_DTREE_WITH_HP_OPT': 'models/fet_hist_opx_dtree_with_hp_opt.joblib',
+        'CPX_DTREE_NO_HP_OPT': 'models/fet_hist_cpx_dtree_no_hp_opt.joblib',
+        'CPX_DTREE_WITH_HP_OPT': 'models/fet_hist_cpx_dtree_with_hp_opt.joblib'
+    },
+    'FET_RECENT': {
+        'OPX_DTREE_NO_HP_OPT': 'models/fet_rcnt_opx_dtree_no_hp_opt.joblib',
+        'OPX_DTREE_WITH_HP_OPT': 'models/fet_rcnt_opx_dtree_with_hp_opt.joblib',
+        'CPX_DTREE_NO_HP_OPT': 'models/fet_rcnt_cpx_dtree_no_hp_opt.joblib',
+        'CPX_DTREE_WITH_HP_OPT': 'models/fet_rcnt_cpx_dtree_with_hp_opt.joblib'
+    }
+}
