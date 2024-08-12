@@ -1,5 +1,5 @@
-from binance_data_to_csv import binance_data_to_csv
+from binance_data_to_csv import process_binance_data
 from train_models import train_all_models
 
-binance_data_to_csv()
+process_binance_data()
 train_all_models()
