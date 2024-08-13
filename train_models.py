@@ -2,6 +2,7 @@ from pandas import DataFrame
 from csv_data_cleaner import load_csv_data
 from model_trainer import train_model
 from constants import MODEL_PATHS, CSV_PATHS, DATAFRAME_COLUMN_NAMES
+from logging_config import info
 
 OPEN_PRICE = DATAFRAME_COLUMN_NAMES['OPEN_PRICE']
 CLOSE_PRICE = DATAFRAME_COLUMN_NAMES['CLOSE_PRICE']
@@ -25,5 +26,9 @@ def train_all_models():
     }
 
     for key in datasets.keys():
+        info(f"Starting model training for dataset: {key}")
         dataset = load_csv_data(CSV_PATHS[key], convert_dates=False)
         train_models_for_dataset(dataset, MODEL_PATHS[key])
+        info(f"Completed model training for dataset: {key}")
+
+    info("All models trained successfully.")
