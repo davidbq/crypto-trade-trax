@@ -1,12 +1,12 @@
 import pandas as pd
 from typing import List
-from date_utils import get_yesterday_date, get_six_months_ago_monday
+from date_utils import get_yesterday_date, six_months_ago_monday
 from fetch_binance_data import fetch_binance_data
 from constants import FETCH_DATA, SYMBOLS, CSV_PATHS
 from logging_config import info
 
 HISTORICAL_START_DATE = FETCH_DATA['HISTORICAL_START_DATE']
-RECENT_START_DATE = get_six_months_ago_monday()
+RECENT_START_DATE = six_months_ago_monday()
 END_DATE = get_yesterday_date()
 INTERVAL = FETCH_DATA['INTERVAL']
 BINANCE_COLUMNS = FETCH_DATA['BINANCE_COLUMNS']
