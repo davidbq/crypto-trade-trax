@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import datetime, timedelta
 from typing import List
 from date_utils import get_yesterday_date, get_six_months_ago_monday
 from fetch_binance_data import fetch_binance_data
