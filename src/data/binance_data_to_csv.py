@@ -1,6 +1,6 @@
 import pandas as pd
 from typing import List
-from ..utils.date_utils import get_yesterday_date, six_months_ago_monday
+from ..utils.date import get_yesterday_date, six_months_ago_monday
 from .fetch_binance_data import fetch_binance_data
 from ..globals.constants import FETCH_DATA, SYMBOLS, CSV_PATHS
 from ..config.logging import info

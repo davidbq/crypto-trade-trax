@@ -2,7 +2,7 @@ from pandas import DataFrame, Series
 from sklearn.metrics.pairwise import cosine_similarity
 from numpy import tril_indices_from
 from ..data.csv_data_cleaner import load_csv_data
-from ..utils.plot_utils import plot_dataframe, plot_week_similarities
+from ..utils.plot import plot_dataframe, plot_week_similarities
 from ..globals.constants import DATAFRAME_COLUMN_NAMES, CSV_PATHS
 from ..config.logging import info
 

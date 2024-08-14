@@ -28,7 +28,7 @@ my_project/
 │   │   └── binance_client.py
 │
 │   ├── config/                 # Configuration files and environment setup
-│   │   ├── env_setup.py
+│   │   ├── env.py
 │   │   └── logging.py
 │
 │   ├── data/                   # Data fetching and processing modules
@@ -48,8 +48,8 @@ my_project/
 │   │   └── run_data_analysis.py
 │
 │   └── utils/                  # Utility functions for date handling, plotting, etc.
-│       ├── date_utils.py
-│       └── plot_utils.py
+│       ├── date.py
+│       └── plot.py
 │
 ├── data/                       # Directory to store the fetched and processed data
 │   ├── btc_historical_data.csv
