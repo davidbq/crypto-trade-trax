@@ -50,7 +50,19 @@ my_project/
 │   └── utils/                  # Utility functions for date handling, plotting, etc.
 │       ├── date_utils.py
 │       └── plot_utils.py
-
+│
+├── data/                       # Directory to store the fetched and processed data
+│   ├── btc_historical_data.csv
+│   ├── btc_recent_data.csv
+│   ├── fet_historical_data.csv
+│   └── fet_recent_data.csv
+│
+├── models/                     # Directory to save trained machine learning models
+│   ├── btc_hist_model.joblib
+│   ├── btc_recent_model.joblib
+│   ├── fet_hist_model.joblib
+│   └── fet_recent_model.joblib
+│
 ├── .env                        # Environment variables file
 
 ├── .gitignore                  # Git ignore file
