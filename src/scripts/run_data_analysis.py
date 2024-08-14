@@ -1,10 +1,10 @@
 from pandas import DataFrame, Series
 from sklearn.metrics.pairwise import cosine_similarity
 from numpy import tril_indices_from
-from csv_data_cleaner import load_csv_data
-from plot_utils import plot_dataframe, plot_week_similarities
-from constants import DATAFRAME_COLUMN_NAMES, CSV_PATHS
-from logging_config import info
+from ..data.csv_data_cleaner import load_csv_data
+from ..utils.plot_utils import plot_dataframe, plot_week_similarities
+from ..globals.constants import DATAFRAME_COLUMN_NAMES, CSV_PATHS
+from ..config.logging import info
 
 def build_weekly_metrics_df(df: DataFrame) -> DataFrame:
     DAY_OF_WEEK = DATAFRAME_COLUMN_NAMES['DAY_OF_WEEK']

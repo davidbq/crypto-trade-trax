@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.metrics import mean_absolute_error
 from joblib import dump
 from sklearn.base import BaseEstimator
-from logging_config import info
+from ..config.logging import info
 
 PARAM_GRID = {
     'criterion': ['squared_error', 'absolute_error'],

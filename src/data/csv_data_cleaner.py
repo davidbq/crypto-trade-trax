@@ -1,6 +1,6 @@
 import pandas as pd
-from constants import DATAFRAME_UNUSED_COLUMNS, DATAFRAME_COLUMN_NAMES
-from logging_config import info
+from ..globals.constants import DATAFRAME_UNUSED_COLUMNS, DATAFRAME_COLUMN_NAMES
+from ..config.logging import info
 
 COLUMNS_TO_REMOVE = DATAFRAME_UNUSED_COLUMNS
 # Column names

@@ -1,6 +1,6 @@
 from typing import List, Any
-from binance_client import get_binance_client
-from logging_config import info
+from ..clients.binance_client import get_binance_client
+from ..config.logging import info
 
 def fetch_binance_data(symbol: str, interval: str, start_date: str, end_date: str) -> List[List[Any]]:
     binance_client = get_binance_client()

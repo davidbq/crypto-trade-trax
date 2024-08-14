@@ -1,5 +1,5 @@
 from binance.client import Client
-from config import get_api_key, get_secret_key
+from src.config.env_setup import get_api_key, get_secret_key
 
 api_key = get_api_key()
 secret_key = get_secret_key()

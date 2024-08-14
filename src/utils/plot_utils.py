@@ -1,7 +1,7 @@
 from plotly.graph_objects import Figure, Table
 from plotly.express import line
 from pandas import DataFrame, Series
-from constants import DATAFRAME_COLUMN_NAMES
+from ..globals.constants import DATAFRAME_COLUMN_NAMES
 
 DAY_OF_WEEK = DATAFRAME_COLUMN_NAMES['DAY_OF_WEEK']
 WEEK_NUMBER = DATAFRAME_COLUMN_NAMES['WEEK_NUMBER']
