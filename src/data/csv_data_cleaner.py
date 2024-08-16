@@ -1,6 +1,5 @@
 import pandas as pd
 from ..globals.constants import DATAFRAME_UNUSED_COLUMNS, DATAFRAME_COLUMN_NAMES
-from ..config.logging import info
 
 COLUMNS_TO_REMOVE = DATAFRAME_UNUSED_COLUMNS
 # Column names
@@ -19,15 +18,12 @@ MS_UNIT = 'ms'
 
 def create_df_from_csv(file_path: str) -> pd.DataFrame:
     try:
-        info(f"Loading CSV file from {file_path}.")
         return pd.read_csv(file_path)
     except FileNotFoundError:
-        info(f"Error: The file {file_path} was not found.")
         return pd.DataFrame()
 
 def drop_unused_columns(df: pd.DataFrame) -> pd.DataFrame:
     df.drop(columns=COLUMNS_TO_REMOVE, inplace=True)
-    info(f"Dropped unused columns: {COLUMNS_TO_REMOVE}.")
     return df
 
 def standardize_data(df: pd.DataFrame, convert_dates: bool = True) -> pd.DataFrame:
@@ -44,7 +40,6 @@ def standardize_data(df: pd.DataFrame, convert_dates: bool = True) -> pd.DataFra
             df[col] = df[col].astype(int)
 
     df.set_index(OPEN_TIME, inplace=True)
-    info("Data standardization completed.")
     return df
 
 def load_csv_data(file_path: str, convert_dates: bool = True) -> pd.DataFrame:
