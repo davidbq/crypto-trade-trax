@@ -3,13 +3,9 @@ from ..models.train_models import train_all_models
 from ..config.logging import info
 
 def daily_update():
-    info("Starting daily data update.")
     process_binance_data()
-    info("Data update completed.")
 
-    info("Starting model training.")
     train_all_models()
-    info("Model training completed.")
 
 if __name__ == "__main__":
     daily_update()
