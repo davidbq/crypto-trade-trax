@@ -1,6 +1,6 @@
 from pandas import DataFrame
 from ..data.csv_data_cleaner import load_csv_data
-from ..models.model_trainer import train_model
+from .dtree_trainer import train_model
 from ..globals.constants import MODEL_PATHS, CSV_PATHS, DATAFRAME_COLUMN_NAMES
 from ..config.logging import info
 
