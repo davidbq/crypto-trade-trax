@@ -7,12 +7,12 @@ from sklearn.base import BaseEstimator
 from ..config.logging import info
 
 PARAM_GRID = {
-    'criterion': ['squared_error', 'absolute_error'],
-    'max_depth': [None, 10, 20, 30, 40, 50],
-    'min_samples_split': [2, 5, 10, 20],
-    'min_samples_leaf': [1, 2, 4, 10],
-    'max_features': [None, 'auto', 'sqrt', 'log2'],
-    'max_leaf_nodes': [None, 10, 20, 50, 100],
+    'criterion': ['squared_error', 'absolute_error', 'friedman_mse', 'entropy' ],
+    'max_depth': [None, 5, 10, 20],
+    'min_samples_split': [2, 3, 4, 5],
+    'min_samples_leaf': [1, 2, 3],
+    'max_features': [None, 'auto', '0.5', '0.75'],
+    'max_leaf_nodes': [None, 50, 75, 100, 150],
 }
 
 def evaluate_model(model, X_train: pd.DataFrame, y_train: pd.Series, X_test: pd.DataFrame, y_test: pd.Series):
