@@ -14,16 +14,24 @@ def build_weekly_metrics_df(df: DataFrame) -> DataFrame:
     PERCENT_CHANGE = DATAFRAME_COLUMN_NAMES['PERCENT_CHANGE']
     DAY_OF_WEEK_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
+    # Find the first Monday in the dataset
+    first_monday_idx = df.index[df.index.day_name() == 'Monday'][0]
+
+    # Filter out the data before this first Monday
+    df = df[df.index >= first_monday_idx]
+
     df[DAY_OF_WEEK] = df.index.day_name()
-    df[WEEK_NUMBER] = df.index.isocalendar().week
+    # Week number relative to the first week in the dataset
+    df[WEEK_NUMBER] = (df.index - df.index.min()).days // 7 + 1
     df[PERCENT_CHANGE] = ((df[CLOSE_PRICE] - df[OPEN_PRICE]) / df[OPEN_PRICE]) * 100
+
     df = df.pivot_table(index=WEEK_NUMBER, columns=DAY_OF_WEEK, values=PERCENT_CHANGE)
 
     return df[DAY_OF_WEEK_NAMES]
 
-def build_cosine_sim_df(df_weekly_data: DataFrame) -> DataFrame:
-    cosine_sim_matrix = cosine_similarity(df_weekly_data.fillna(0))
-    return DataFrame(cosine_sim_matrix, index=df_weekly_data.index, columns=df_weekly_data.index)
+def build_cosine_sim_df(df: DataFrame) -> DataFrame:
+    cosine_sim_matrix = cosine_similarity(df.fillna(0))
+    return DataFrame(cosine_sim_matrix, index=df.index, columns=df.index)
 
 def extract_top_n_similarities(df_cosine_sim: DataFrame, top_n: int) -> Series:
     # Ignore diagonal (self-comparisons) and lower triangle duplicates
