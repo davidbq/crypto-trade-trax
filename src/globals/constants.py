@@ -59,10 +59,10 @@ FETCH_DATA = {
 
 CSV_PATHS = {
     'CRYPTO': {
-        'BTC_HISTORICAL': path.join(BASE_PATH, 'data/btc_historical_data.csv'),
-        'BTC_RECENT': path.join(BASE_PATH, 'data/btc_recent_data.csv'),
-        'FET_HISTORICAL': path.join(BASE_PATH, 'data/fet_historical_data.csv'),
-        'FET_RECENT': path.join(BASE_PATH, 'data/fet_recent_data.csv')
+        'BTC_HISTORICAL': path.join(BASE_PATH, 'data/crypto/btc_historical_data.csv'),
+        'BTC_RECENT': path.join(BASE_PATH, 'data/crypto/btc_recent_data.csv'),
+        'FET_HISTORICAL': path.join(BASE_PATH, 'data/crypto/fet_historical_data.csv'),
+        'FET_RECENT': path.join(BASE_PATH, 'data/crypto/fet_recent_data.csv')
     },
     'OPT_HP': path.join(BASE_PATH, 'data/opt_hp/best_params.csv')
 }
