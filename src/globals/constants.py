@@ -18,7 +18,8 @@ DATAFRAME_COLUMN_NAMES = {
     'CLOSE_PRICE': 'Close price',
     'VOLUME': 'Volume',
     'OPEN_TIME': 'Open time',
-    'CLOSE_TIME': 'Close time'
+    'CLOSE_TIME': 'Close time',
+    'MODEL_PATH': 'Model path'
 }
 
 DATAFRAME_UNUSED_COLUMN_NAMES = {
