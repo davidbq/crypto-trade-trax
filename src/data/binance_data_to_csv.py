@@ -17,10 +17,10 @@ def save_data_to_csv(data: List, file_path: str) -> None:
 
 def process_binance_data():
     data_to_process = [
-        {'symbol': 'BTC_USDT', 'start_date': HISTORICAL_START_DATE, 'file_path': CSV_PATHS['BTC_HISTORICAL']},
-        {'symbol': 'BTC_USDT', 'start_date': RECENT_START_DATE, 'file_path': CSV_PATHS['BTC_RECENT']},
-        {'symbol': 'FET_USDT', 'start_date': HISTORICAL_START_DATE, 'file_path': CSV_PATHS['FET_HISTORICAL']},
-        {'symbol': 'FET_USDT', 'start_date': RECENT_START_DATE, 'file_path': CSV_PATHS['FET_RECENT']}
+        {'symbol': 'BTC_USDT', 'start_date': HISTORICAL_START_DATE, 'file_path': CSV_PATHS['CRYPTO']['BTC_HISTORICAL']},
+        {'symbol': 'BTC_USDT', 'start_date': RECENT_START_DATE, 'file_path': CSV_PATHS['CRYPTO']['BTC_RECENT']},
+        {'symbol': 'FET_USDT', 'start_date': HISTORICAL_START_DATE, 'file_path': CSV_PATHS['CRYPTO']['FET_HISTORICAL']},
+        {'symbol': 'FET_USDT', 'start_date': RECENT_START_DATE, 'file_path': CSV_PATHS['CRYPTO']['FET_RECENT']}
     ]
     for entry in data_to_process:
         data = fetch_binance_data(SYMBOLS[entry['symbol']], INTERVAL, entry['start_date'], END_DATE)

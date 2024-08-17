@@ -60,10 +60,10 @@ def run_analysis():
     '''
 
     datasets = {
-        'BTC_HISTORICAL': CSV_PATHS['BTC_HISTORICAL'],
-        'BTC_RECENT': CSV_PATHS['BTC_RECENT'],
-        'FET_HISTORICAL': CSV_PATHS['FET_HISTORICAL'],
-        'FET_RECENT': CSV_PATHS['FET_RECENT']
+        'BTC_HISTORICAL': CSV_PATHS['CRYPTO']['BTC_HISTORICAL'],
+        'BTC_RECENT': CSV_PATHS['CRYPTO']['BTC_RECENT'],
+        'FET_HISTORICAL': CSV_PATHS['CRYPTO']['FET_HISTORICAL'],
+        'FET_RECENT': CSV_PATHS['CRYPTO']['FET_RECENT']
     }
 
     for key in datasets.keys():

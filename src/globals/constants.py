@@ -57,35 +57,70 @@ FETCH_DATA = {
 }
 
 CSV_PATHS = {
-  'BTC_HISTORICAL': path.join(BASE_PATH, 'data/btc_historical_data.csv'),
-  'BTC_RECENT': path.join(BASE_PATH, 'data/btc_recent_data.csv'),
-  'FET_HISTORICAL': path.join(BASE_PATH, 'data/fet_historical_data.csv'),
-  'FET_RECENT': path.join(BASE_PATH, 'data/fet_recent_data.csv'),
+    'CRYPTO': {
+        'BTC_HISTORICAL': path.join(BASE_PATH, 'data/btc_historical_data.csv'),
+        'BTC_RECENT': path.join(BASE_PATH, 'data/btc_recent_data.csv'),
+        'FET_HISTORICAL': path.join(BASE_PATH, 'data/fet_historical_data.csv'),
+        'FET_RECENT': path.join(BASE_PATH, 'data/fet_recent_data.csv')
+    },
+    'OPT_HP': path.join(BASE_PATH, 'data/opt_hp/best_params.csv')
 }
 
 MODEL_PATHS = {
     'BTC_HISTORICAL': {
-        'OPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_opx_dtree_no_hp_opt.joblib'),
-        'OPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_opx_dtree_with_hp_opt.joblib'),
-        'CPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_cpx_dtree_no_hp_opt.joblib'),
-        'CPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_cpx_dtree_with_hp_opt.joblib')
+        'DTREE': {
+            'OPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_opx_dtree_no_hp_opt.joblib'),
+            'OPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_opx_dtree_with_hp_opt.joblib'),
+            'CPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_cpx_dtree_no_hp_opt.joblib'),
+            'CPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_cpx_dtree_with_hp_opt.joblib')
+        },
+        'RFOREST': {
+            'OPX_RFOREST_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_opx_rforest_no_hp_opt.joblib'),
+            'OPX_RFOREST_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_opx_rforest_with_hp_opt.joblib'),
+            'CPX_RFOREST_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_cpx_rforest_no_hp_opt.joblib'),
+            'CPX_RFOREST_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_hist_cpx_rforest_with_hp_opt.joblib')
+        }
     },
     'BTC_RECENT': {
-        'OPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_opx_dtree_no_hp_opt.joblib'),
-        'OPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_opx_dtree_with_hp_opt.joblib'),
-        'CPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_cpx_dtree_no_hp_opt.joblib'),
-        'CPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_cpx_dtree_with_hp_opt.joblib')
+        'DTREE': {
+            'OPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_opx_dtree_no_hp_opt.joblib'),
+            'OPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_opx_dtree_with_hp_opt.joblib'),
+            'CPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_cpx_dtree_no_hp_opt.joblib'),
+            'CPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_cpx_dtree_with_hp_opt.joblib')
+        },
+        'RFOREST': {
+            'OPX_RFOREST_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_opx_rforest_no_hp_opt.joblib'),
+            'OPX_RFOREST_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_opx_rforest_with_hp_opt.joblib'),
+            'CPX_RFOREST_NO_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_cpx_rforest_no_hp_opt.joblib'),
+            'CPX_RFOREST_WITH_HP_OPT': path.join(BASE_PATH, 'models/btc_rcnt_cpx_rforest_with_hp_opt.joblib')
+        }
     },
     'FET_HISTORICAL': {
-        'OPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_opx_dtree_no_hp_opt.joblib'),
-        'OPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_opx_dtree_with_hp_opt.joblib'),
-        'CPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_cpx_dtree_no_hp_opt.joblib'),
-        'CPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_cpx_dtree_with_hp_opt.joblib')
+        'DTREE': {
+            'OPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_opx_dtree_no_hp_opt.joblib'),
+            'OPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_opx_dtree_with_hp_opt.joblib'),
+            'CPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_cpx_dtree_no_hp_opt.joblib'),
+            'CPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_cpx_dtree_with_hp_opt.joblib')
+        },
+        'RFOREST': {
+            'OPX_RFOREST_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_opx_rforest_no_hp_opt.joblib'),
+            'OPX_RFOREST_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_opx_rforest_with_hp_opt.joblib'),
+            'CPX_RFOREST_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_cpx_rforest_no_hp_opt.joblib'),
+            'CPX_RFOREST_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_hist_cpx_rforest_with_hp_opt.joblib')
+        }
     },
     'FET_RECENT': {
-        'OPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_opx_dtree_no_hp_opt.joblib'),
-        'OPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_opx_dtree_with_hp_opt.joblib'),
-        'CPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_cpx_dtree_no_hp_opt.joblib'),
-        'CPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_cpx_dtree_with_hp_opt.joblib')
+        'DTREE': {
+            'OPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_opx_dtree_no_hp_opt.joblib'),
+            'OPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_opx_dtree_with_hp_opt.joblib'),
+            'CPX_DTREE_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_cpx_dtree_no_hp_opt.joblib'),
+            'CPX_DTREE_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_cpx_dtree_with_hp_opt.joblib')
+        },
+        'RFOREST': {
+            'OPX_RFOREST_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_opx_rforest_no_hp_opt.joblib'),
+            'OPX_RFOREST_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_opx_rforest_with_hp_opt.joblib'),
+            'CPX_RFOREST_NO_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_cpx_rforest_no_hp_opt.joblib'),
+            'CPX_RFOREST_WITH_HP_OPT': path.join(BASE_PATH, 'models/fet_rcnt_cpx_rforest_with_hp_opt.joblib')
+           }
     }
 }
