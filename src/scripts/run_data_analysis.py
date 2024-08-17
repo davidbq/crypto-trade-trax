@@ -67,7 +67,7 @@ def run_analysis():
     }
 
     for key in datasets.keys():
-        df_main_data = load_csv_data(CSV_PATHS[key])
+        df_main_data = load_csv_data(CSV_PATHS['CRYPTO'][key])
         plot_dataframe(df_main_data, f'DataFrame {key}')
 
         df_weekly_data = build_weekly_metrics_df(df_main_data)
