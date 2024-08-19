@@ -1,7 +1,7 @@
 from pandas import DataFrame, Series
 from sklearn.metrics.pairwise import cosine_similarity
 from numpy import tril_indices_from
-from ..data.csv_data_cleaner import load_csv_data
+from ..data.csv_cleaner import load_csv_data
 from ..utils.plot import plot_dataframe, plot_week_similarities
 from ..globals.constants import DATAFRAME_COLUMN_NAMES, CSV_PATHS
 
@@ -60,10 +60,8 @@ def run_analysis():
     '''
 
     datasets = {
-        'BTC_HISTORICAL': CSV_PATHS['CRYPTO']['BTC_HISTORICAL'],
-        'BTC_RECENT': CSV_PATHS['CRYPTO']['BTC_RECENT'],
-        'FET_HISTORICAL': CSV_PATHS['CRYPTO']['FET_HISTORICAL'],
-        'FET_RECENT': CSV_PATHS['CRYPTO']['FET_RECENT']
+        'BTC': CSV_PATHS['CRYPTO']['BTC'],
+        'FET': CSV_PATHS['CRYPTO']['FET'],
     }
 
     for key in datasets.keys():
