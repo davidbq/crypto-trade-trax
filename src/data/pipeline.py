@@ -18,7 +18,6 @@ def process_symbol_data(symbol: str, start_date: str, end_date: str, interval: s
         df_cleaned = clean_data(df)
         df_formatted = format_data(df_cleaned)
         df_transformed = transform_data(df_formatted)
-        print(df_transformed)
         store_data(df_transformed, file_path)
         info(f'Data pipeline for {symbol} completed successfully')
     except Exception as e:
