@@ -1,6 +1,5 @@
 from ..data.pipeline import execute_data_pipeline
-#from ..models.train_models import train_all_models
-from ..config.logging import info
+from ..models.train_models import train_all_models
 
 def daily_update():
     execute_data_pipeline()
