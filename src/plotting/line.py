@@ -1,12 +1,12 @@
 from pandas import DataFrame, Series
 from plotly.express import line
-from ..globals.constants import CRYPTO_DF_COLS_NAMES
+from ..globals.constants import WEEKLY_COL_NAMES
 
-DAY_OF_WEEK = CRYPTO_DF_COLS_NAMES['DAY_OF_WEEK']
-WEEK_NUMBER = CRYPTO_DF_COLS_NAMES['WEEK_NUMBER']
-OPEN_PRICE = CRYPTO_DF_COLS_NAMES['OPEN_PRICE']
-CLOSE_PRICE = CRYPTO_DF_COLS_NAMES['CLOSE_PRICE']
-PERCENT_CHANGE = CRYPTO_DF_COLS_NAMES['PERCENT_CHANGE']
+DAY_OF_WEEK = WEEKLY_COL_NAMES['DAY_OF_WEEK']
+WEEK_NUMBER = WEEKLY_COL_NAMES['WEEK_NUMBER']
+OPEN_PRICE = WEEKLY_COL_NAMES['OPEN_PRICE']
+CLOSE_PRICE = WEEKLY_COL_NAMES['CLOSE_PRICE']
+PERCENT_CHANGE = WEEKLY_COL_NAMES['PERCENT_CHANGE']
 
 def base_plot(df_filtered_data: DataFrame, title: str, x_col: str, y_col: str, color_col: str) -> None:
     """

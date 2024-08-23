@@ -1,8 +1,10 @@
 import pandas as pd
 from typing import List
-from ..globals.constants import FETCH_DATA
+from ..globals.constants import CLEAN_DATA
 
-RELEVANT_BINANCE_COLS = FETCH_DATA['RELEVANT_BINANCE_COLS']
+def clean_daily_data(df: pd.DataFrame) -> pd.DataFrame:
+    return df[CLEAN_DATA['DAILY_RELEVANT_COLS']]
 
-def clean_data(df: pd.DataFrame) -> pd.DataFrame:
-    return df[RELEVANT_BINANCE_COLS]
+
+def clean_weekly_data(df: pd.DataFrame) -> pd.DataFrame:
+    return df[CLEAN_DATA['WEEKLY_RELEVANT_COLS']]

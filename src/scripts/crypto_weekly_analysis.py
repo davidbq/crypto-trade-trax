@@ -4,6 +4,7 @@ from ..data.loading import load_csv_data
 from ..plotting.table import plot_dataframe
 from ..plotting.line import plot_similar_weeks, plot_following_weeks
 from ..globals.constants import CSV_PATHS
+from ..config.logging import info
 
 def build_cosine_sim_df(df: DataFrame) -> DataFrame:
     '''
@@ -48,7 +49,7 @@ def get_subsequent_weeks_to_similarity(df_weekly_data: DataFrame, week_similarit
         if next_week in df_weekly_data.index:
             following_weeks[next_week] = next_week  # Store just the week number, not the similarity score
         else:
-            print(f'Week {next_week} not found, skipping.')
+            info(f'Week {next_week} not found, skipping.')
 
     return Series(following_weeks)
 
@@ -59,8 +60,8 @@ def run_analysis():
     cosine similarities, and plotting the results.
     '''
     datasets = {
-        'BTC': CSV_PATHS['CRYPTO']['BTC'],
-        'FET': CSV_PATHS['CRYPTO']['FET'],
+        'BTC_WEEKLY': CSV_PATHS['CRYPTO']['BTC_WEEKLY'],
+        'FET_WEEKLY': CSV_PATHS['CRYPTO']['FET_WEEKLY'],
     }
 
     for key in datasets.keys():
