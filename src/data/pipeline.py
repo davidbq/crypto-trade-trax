@@ -6,7 +6,7 @@ from .collection import fetch_binance_data
 from .conversion import convert_to_dataframe
 from .cleaning import clean_weekly_data, clean_daily_data
 from .formatting import format_weekly_data, format_daily_data
-from .transformation import build_weekly_metrics_df, build_daily_metrics
+from .transformation import build_weekly_metrics_df, build_daily_metrics_df
 from .storage import store_data
 from ..globals.constants import FETCH_DATA, SYMBOLS, CSV_PATHS
 from ..config.logging import info
@@ -32,7 +32,7 @@ def daily_data_pipeline(df: DataFrame, file_path: str) -> None:
         info(f'Starting daily data pipeline')
         df_cleaned = clean_daily_data(df)
         df_formatted = format_daily_data(df_cleaned)
-        df_transformed = build_daily_metrics(df_formatted)
+        df_transformed = build_daily_metrics_df(df_formatted)
         store_data(df_transformed, file_path)
         info(f'Daily data pipeline completed successfully')
     except Exception as e:
@@ -43,10 +43,10 @@ def execute_data_pipelines() -> None:
     start_date = FETCH_DATA['HISTORICAL_START_DATE']
     end_date = get_yesterday_date()
     interval = FETCH_DATA['INTERVAL']
-    btc_weekly_path = CSV_PATHS['CRYPTO']['BTC_WEEKLY']
-    fet_weekly_path = CSV_PATHS['CRYPTO']['FET_WEEKLY']
-    btc_daily_path = CSV_PATHS['CRYPTO']['BTC_DAILY']
-    fet_daily_path = CSV_PATHS['CRYPTO']['FET_DAILY']
+    btc_weekly_path = CSV_PATHS['CRYPTO']['WEEKLY']['BTC']
+    fet_weekly_path = CSV_PATHS['CRYPTO']['WEEKLY']['FET']
+    btc_daily_path = CSV_PATHS['CRYPTO']['DAILY']['BTC']
+    fet_daily_path = CSV_PATHS['CRYPTO']['DAILY']['FET']
 
     symbols_to_process = [
         {'symbol': 'BTC_USDT', 'weekly_file_path': btc_weekly_path, 'daily_file_path': btc_daily_path },

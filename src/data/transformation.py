@@ -59,7 +59,7 @@ def calculate_last_day_values(df: DataFrame) -> DataFrame:
     df[DAILY_COL_NAMES['LD_STOCH_D']] = df[DAILY_COL_NAMES['STOCH_D']].shift(1)
 
     # SMA and EMA
-    for period in [3, 7, 20, 50, 200]:
+    for period in [3, 7, 20]:
         df[DAILY_COL_NAMES[f'LD_SMA_{period}']] = df[DAILY_COL_NAMES[f'SMA_{period}']].shift(1)
         df[DAILY_COL_NAMES[f'LD_EMA_{period}']] = df[DAILY_COL_NAMES[f'EMA_{period}']].shift(1)
 
@@ -73,7 +73,7 @@ def calculate_last_3_7_day_values(df: DataFrame) -> DataFrame:
     df[DAILY_COL_NAMES['L7D_AVG_TAKER_BUY_VOLUME']] = df[DAILY_COL_NAMES['TAKER_BUY_BASE_ASSET_VOLUME']].rolling(window=7).mean().shift(1)
     return df
 
-def build_daily_metrics(df: DataFrame) -> DataFrame:
+def build_daily_metrics_df(df: DataFrame) -> DataFrame:
     df = add_technical_indicators(df)
     df[DAILY_COL_NAMES['PERCENT_CHANGE']] = ((df[DAILY_COL_NAMES['CLOSE_PRICE']] - df[DAILY_COL_NAMES['OPEN_PRICE']]) / df[DAILY_COL_NAMES['OPEN_PRICE']]) * 100
     df = calculate_last_day_values(df)

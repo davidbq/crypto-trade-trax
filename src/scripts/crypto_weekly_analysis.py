@@ -1,9 +1,8 @@
-from pandas import DataFrame, Series
+from pandas import DataFrame, Series, read_csv
 from sklearn.metrics.pairwise import cosine_similarity
-from ..data.loading import load_csv_data
 from ..plotting.table import plot_dataframe
 from ..plotting.line import plot_similar_weeks, plot_following_weeks
-from ..globals.constants import CSV_PATHS
+from ..globals.constants import CSV_PATHS, WEEKLY_COL_NAMES
 from ..config.logging import info
 
 def build_cosine_sim_df(df: DataFrame) -> DataFrame:
@@ -60,12 +59,12 @@ def run_analysis():
     cosine similarities, and plotting the results.
     '''
     datasets = {
-        'BTC_WEEKLY': CSV_PATHS['CRYPTO']['BTC_WEEKLY'],
-        'FET_WEEKLY': CSV_PATHS['CRYPTO']['FET_WEEKLY'],
+        'BTC': CSV_PATHS['CRYPTO']['WEEKLY']['BTC'],
+        'FET': CSV_PATHS['CRYPTO']['WEEKLY']['FET'],
     }
 
     for key in datasets.keys():
-        df = load_csv_data(CSV_PATHS['CRYPTO'][key])
+        df = read_csv(CSV_PATHS['CRYPTO']['WEEKLY'][key], index_col=WEEKLY_COL_NAMES['WEEK_NUMBER'])
         plot_dataframe(df, f'DataFrame {key}')
 
         df_cosine_sim = build_cosine_sim_df(df)

@@ -121,14 +121,10 @@ def add_technical_indicators(df: DataFrame) -> DataFrame:
     df = calculate_sma(df, 3)
     df = calculate_sma(df, 7)
     df = calculate_sma(df, 20)
-    df = calculate_sma(df, 50)
-    df = calculate_sma(df, 200)
 
     df = calculate_ema(df, 3)
     df = calculate_ema(df, 7)
     df = calculate_ema(df, 20)
-    df = calculate_ema(df, 50)
-    df = calculate_ema(df, 200)
 
     df = calculate_rsi(df, 14)
     df = calculate_bollinger_bands(df, 20)

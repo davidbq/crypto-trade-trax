@@ -8,8 +8,10 @@ Crypto Trade Trax is a Python-based project designed for fetching, processing, a
 
 - **Data Fetching:** Automatically retrieves historical and recent cryptocurrency data from Binance.
 - **Data Processing:** Cleans and standardizes the data to prepare it for analysis or model training.
-- **Model Training:** Trains machine learning models to predict price movements based on historical data.
+- **Cosine Similarity Analysis:** Analyzes weekly patterns by identifying weeks with similar price movements.
+- **Model Training:** Trains machine learning models (Random Forest, Decision Trees) to predict price movements based on historical data.
 - **Daily Updates:** Automates the process of updating datasets and retraining models with the latest data.
+- **Visualization:** Generates plots and tables to visualize the analysis and model predictions.
 - **Logging:** Comprehensive logging throughout the project to track the execution of scripts and processes.
 
 ## Prerequisites
@@ -17,60 +19,6 @@ Crypto Trade Trax is a Python-based project designed for fetching, processing, a
 - Python 3.x
 - pip (Python package installer)
 - A Binance API account for fetching cryptocurrency data
-
-## Project Structure
-
-```
-my_project/
-
-├── src/
-│   ├── clients/                # Contains client code for interacting with external APIs
-│   │   └── binance_client.py
-│
-│   ├── config/                 # Configuration files and environment setup
-│   │   ├── env.py
-│   │   └── logging.py
-│
-│   ├── data/                   # Data fetching and processing modules
-│   │   ├── binance_data_to_csv.py
-│   │   ├── csv_data_cleaner.py
-│   │   └── fetch_binance_data.py
-│
-│   ├── globals/                # Global constants used across the project
-│   │   └── constants.py
-│
-│   ├── models/                 # Machine learning model training and evaluation
-│   │   ├── model_trainer.py
-│   │   └── train_models.py
-│
-│   ├── scripts/                # Executable scripts for daily updates and analysis
-│   │   ├── daily_update.py
-│   │   └── run_data_analysis.py
-│
-│   └── utils/                  # Utility functions for date handling, plotting, etc.
-│       ├── date.py
-│       └── plot.py
-│
-├── data/                       # Directory to store the fetched and processed data
-│   ├── btc_historical_data.csv
-│   ├── btc_recent_data.csv
-│   ├── fet_historical_data.csv
-│   └── fet_recent_data.csv
-│
-├── models/                     # Directory to save trained machine learning models
-│   ├── btc_hist_model.joblib
-│   ├── btc_recent_model.joblib
-│   ├── fet_hist_model.joblib
-│   └── fet_recent_model.joblib
-│
-├── .env                        # Environment variables file
-
-├── .gitignore                  # Git ignore file
-
-├── README.md                   # Project README file
-
-└── requirements.txt            # Python dependencies
-```
 
 ## Installation
 
@@ -97,6 +45,32 @@ API_KEY=your_binance_api_key
 SECRET_KEY=your_binance_secret_key
 ```
 
+## Project Structure
+
+```
+Crypto-Trade-Trax/
+│
+├── data/                               # Contains datasets used for model training and analysis
+│   └── crypto/
+        └── *.csv                       # CSV files for BTC and FET daily and weekly data
+│
+├── models/                             # Trained machine learning models
+│   └── *.joblib                        # Serialized model files for BTC and FET
+│
+├── src/
+│   ├── clients/                        # Contains scripts for interacting with external APIs (e.g., Binance)
+│   ├── config/                         # Configuration files for environment and logging
+│   ├── data/                           # Data collection, processing, transformation, and storage scripts
+│   ├── models/                         # Model training and prediction scripts
+│   ├── plotting/                       # Scripts for generating plots and visualizations
+│   ├── scripts/                        # High-level scripts for executing various tasks (e.g., analysis, updates)
+│   └── utils/                          # Utility scripts for data preparation, technical indicators, etc.
+│
+├── README.md                           # Project documentation
+├── requirements.txt                    # List of Python dependencies
+└── .env
+```
+
 ## Usage
 
 ### Fetching Data and Training Models
@@ -113,6 +87,16 @@ This single command will:
 
 - Fetch and save the latest cryptocurrency data from Binance to CSV files.
 - Train machine learning models using the newly fetched data.
+
+### Analyzing Weekly Patterns
+
+To perform weekly analysis using cosine similarity:
+
+```bash
+python -m src.scripts.crypto_weekly_analysis
+```
+
+This script will analyze the weekly data and identify the most similar weeks based on cosine similarity, generating visualizations for better insights.
 
 ## Data Features
 
@@ -140,8 +124,6 @@ Simple Moving Averages (SMA) are calculated by averaging a set of prices over a 
 - **`SMA_3`:** The simple moving average calculated over the last 3 days.
 - **`SMA_7`:** The simple moving average calculated over the last 7 days.
 - **`SMA_20`:** The simple moving average calculated over the last 20 days.
-- **`SMA_50`:** The simple moving average calculated over the last 50 days.
-- **`SMA_200`:** The simple moving average calculated over the last 200 days.
 
 #### 3. Exponential Moving Averages (EMA)
 
@@ -150,8 +132,6 @@ Exponential Moving Averages (EMA) give more weight to recent prices, making them
 - **`EMA_3`:** The exponential moving average calculated over the last 3 days.
 - **`EMA_7`:** The exponential moving average calculated over the last 7 days.
 - **`EMA_20`:** The exponential moving average calculated over the last 20 days.
-- **`EMA_50`:** The exponential moving average calculated over the last 50 days.
-- **`EMA_200`:** The exponential moving average calculated over the last 200 days.
 
 #### 4. Relative Strength Index (RSI)
 
@@ -201,14 +181,6 @@ Oscillators are momentum indicators that fluctuate between fixed points and are 
 - **`WILLR_14`:** The Williams %R, a momentum indicator that measures overbought and oversold levels over a 14-day period.
 - **`STOCH_K`:** The %K line of the Stochastic Oscillator, representing the current close relative to the range of prices over a set period.
 - **`STOCH_D`:** The %D line of the Stochastic Oscillator, which is a moving average of %K, providing smoothed values.
-
-### Running Data Analysis
-
-To perform data analysis on the fetched and cleaned data:
-
-```bash
-python -m src.scripts.run_data_analysis
-```
 
 ## Logging
 

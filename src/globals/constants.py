@@ -105,15 +105,11 @@ DAILY_COL_NAMES = {
     'SMA_3': 'SMA 3',
     'SMA_7': 'SMA 7',
     'SMA_20': 'SMA 20',
-    'SMA_50': 'SMA 50',
-    'SMA_200': 'SMA 200',
 
     # Last Day SMAs
     'LD_SMA_3': 'Last Day SMA 3',
     'LD_SMA_7': 'Last Day SMA 7',
     'LD_SMA_20': 'Last Day SMA 20',
-    'LD_SMA_50': 'Last Day SMA 50',
-    'LD_SMA_200': 'Last Day SMA 200',
 
     # =========================
     # 6. Exponential Moving Averages (EMA)
@@ -121,15 +117,11 @@ DAILY_COL_NAMES = {
     'EMA_3': 'EMA 3',
     'EMA_7': 'EMA 7',
     'EMA_20': 'EMA 20',
-    'EMA_50': 'EMA 50',
-    'EMA_200': 'EMA 200',
 
     # Last Day EMAs
     'LD_EMA_3': 'Last Day EMA 3',
     'LD_EMA_7': 'Last Day EMA 7',
     'LD_EMA_20': 'Last Day EMA 20',
-    'LD_EMA_50': 'Last Day EMA 50',
-    'LD_EMA_200': 'Last Day EMA 200',
 
     # =========================
     # 7. Relative Strength Index (RSI)
@@ -200,59 +192,31 @@ DAILY_COL_NAMES = {
     'LD_STOCH_D': 'Last Day Stochastic %D'
 }
 
-BP_DF_COL_NAMES = {
+BEST_PARAMS_DF_COL_NAMES = {
   'MODEL_PATH': 'Model Path'
 }
 
 CSV_PATHS = {
     'CRYPTO': {
-        'BTC_WEEKLY': path.join(BASE_PATH, 'data/crypto/btc_weekly_data.csv'),
-        'FET_WEEKLY': path.join(BASE_PATH, 'data/crypto/fet_weekly_data.csv'),
-        'BTC_DAILY': path.join(BASE_PATH, 'data/crypto/btc_daily_data.csv'),
-        'FET_DAILY': path.join(BASE_PATH, 'data/crypto/fet_daily_data.csv')
+        'WEEKLY': {
+            'BTC': path.join(BASE_PATH, 'data/crypto/btc_weekly_data.csv'),
+            'FET': path.join(BASE_PATH, 'data/crypto/fet_weekly_data.csv'),
+        },
+        'DAILY': {
+            'BTC': path.join(BASE_PATH, 'data/crypto/btc_daily_data.csv'),
+            'FET': path.join(BASE_PATH, 'data/crypto/fet_daily_data.csv')
+        }
     },
     'OPT_HP': path.join(BASE_PATH, 'data/opt_hp/best_params.csv')
 }
 
 MODEL_PATHS = {
     'BTC': {
-        'DTREE': {
-            'MONDAY': path.join(BASE_PATH, 'models/btc_dtree_mon.joblib'),
-            'TUESDAY': path.join(BASE_PATH, 'models/btc_dtree_tue.joblib'),
-            'WEDNESDAY': path.join(BASE_PATH, 'models/btc_dtree_wed.joblib'),
-            'THURSDAY': path.join(BASE_PATH, 'models/btc_dtree_thu.joblib'),
-            'FRIDAY': path.join(BASE_PATH, 'models/btc_dtree_fri.joblib'),
-            'SATURDAY': path.join(BASE_PATH, 'models/btc_dtree_sat.joblib'),
-            'SUNDAY': path.join(BASE_PATH, 'models/btc_dtree_sun.joblib')
-        },
-        'RFOREST': {
-            'MONDAY': path.join(BASE_PATH, 'models/btc_rforest_mon.joblib'),
-            'TUESDAY': path.join(BASE_PATH, 'models/btc_rforest_tue.joblib'),
-            'WEDNESDAY': path.join(BASE_PATH, 'models/btc_rforest_wed.joblib'),
-            'THURSDAY': path.join(BASE_PATH, 'models/btc_rforest_thu.joblib'),
-            'FRIDAY': path.join(BASE_PATH, 'models/btc_rforest_fri.joblib'),
-            'SATURDAY': path.join(BASE_PATH, 'models/btc_rforest_sat.joblib'),
-            'SUNDAY': path.join(BASE_PATH, 'models/btc_rforest_sun.joblib')
-        }
+        'DTREE': path.join(BASE_PATH, 'models/btc_dtree_close_price.joblib'),
+        'RFOREST': path.join(BASE_PATH, 'models/btc_rforest_close_price.joblib')
     },
     'FET': {
-        'DTREE': {
-            'MONDAY': path.join(BASE_PATH, 'models/fet_dtree_mon.joblib'),
-            'TUESDAY': path.join(BASE_PATH, 'models/fet_dtree_tue.joblib'),
-            'WEDNESDAY': path.join(BASE_PATH, 'models/fet_dtree_wed.joblib'),
-            'THURSDAY': path.join(BASE_PATH, 'models/fet_dtree_thu.joblib'),
-            'FRIDAY': path.join(BASE_PATH, 'models/fet_dtree_fri.joblib'),
-            'SATURDAY': path.join(BASE_PATH, 'models/fet_dtree_sat.joblib'),
-            'SUNDAY': path.join(BASE_PATH, 'models/fet_dtree_sun.joblib')
-        },
-        'RFOREST': {
-            'MONDAY': path.join(BASE_PATH, 'models/fet_rforest_mon.joblib'),
-            'TUESDAY': path.join(BASE_PATH, 'models/fet_rforest_tue.joblib'),
-            'WEDNESDAY': path.join(BASE_PATH, 'models/fet_rforest_wed.joblib'),
-            'THURSDAY': path.join(BASE_PATH, 'models/fet_rforest_thu.joblib'),
-            'FRIDAY': path.join(BASE_PATH, 'models/fet_rforest_fri.joblib'),
-            'SATURDAY': path.join(BASE_PATH, 'models/fet_rforest_sat.joblib'),
-            'SUNDAY': path.join(BASE_PATH, 'models/fet_rforest_sun.joblib')
-        }
+        'DTREE': path.join(BASE_PATH, 'models/fet_dtree_close_price.joblib'),
+        'RFOREST': path.join(BASE_PATH, 'models/fet_rforest_close_price.joblib')
     }
 }
