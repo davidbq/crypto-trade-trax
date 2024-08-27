@@ -1,4 +1,5 @@
 from pandas import DataFrame, read_csv
+from typing import Dict, Any
 from .dtree_trainer import train_dt_model
 from .rforest_trainer import train_rf_model
 from ..utils.df_modeling_preparation import prepare_daily_data_for_modeling
@@ -6,7 +7,7 @@ from ..globals.constants import MODEL_PATHS, CSV_PATHS, DAILY_COL_NAMES
 from ..config.logging import info
 
 PARAM_GRIDS = {
-    'BTC':{
+    'BTC': {
         'DTREE': {
             'criterion': ['absolute_error'],
             'max_depth': [None],
@@ -19,33 +20,35 @@ PARAM_GRIDS = {
         }
     },
     'FET': {
-        'DTREE':{
+        'DTREE': {
             'criterion': ['friedman_mse'],
             'max_depth': [None],
             'max_leaf_nodes': [85]
         },
         'RFOREST': {
-                'criterion': ['absolute_error'],
-                'n_estimators': [150],
-                'max_depth': [12],
+            'criterion': ['absolute_error'],
+            'n_estimators': [150],
+            'max_depth': [12],
         }
     }
 }
 
 
-def train_models_for_dataset(df: DataFrame, param_grids: dict, model_paths: dict) -> None:
-    df_cleand = prepare_daily_data_for_modeling(df)
-    df_cleaned = df_cleand.dropna()
+def train_models_for_dataset(df: DataFrame, param_grids: Dict[str, Dict[str, Any]], model_paths: Dict[str, str]) -> None:
+    df_cleaned = prepare_daily_data_for_modeling(df).dropna()
     X = df_cleaned.drop(columns=[DAILY_COL_NAMES['CLOSE_PRICE']])
     y = df_cleaned[DAILY_COL_NAMES['CLOSE_PRICE']]
 
-    info('Starting model training type DTREE')
-    train_dt_model(X, y, param_grids['DTREE'], model_paths['DTREE'])
-    info('Completed model training type DTREE')
+    model_types = {
+        'DTREE': train_dt_model,
+        'RFOREST': train_rf_model
+    }
 
-    info('Starting model training type RFOREST')
-    train_rf_model(X, y, param_grids['RFOREST'], model_paths['RFOREST'])
-    info('Completed model training type RFOREST')
+    for model_type, train_function in model_types.items():
+        info(f'Starting model training type {model_type}')
+        train_function = train_dt_model if model_type == 'DTREE' else train_rf_model
+        train_function(X, y, param_grids[model_type], model_paths[model_type])
+        info(f'Completed model training type {model_type}')
 
 def train_all_models():
     datasets = {
@@ -53,8 +56,8 @@ def train_all_models():
         'FET': CSV_PATHS['CRYPTO']['DAILY']['FET'],
     }
 
-    for key in datasets.keys():
-        df = read_csv(CSV_PATHS['CRYPTO']['DAILY'][key])
+    for key, path in datasets.items():
+        df = read_csv(path)
 
         info(f'Starting model training for dataset: {key}')
         train_models_for_dataset(df, PARAM_GRIDS[key], MODEL_PATHS[key])
