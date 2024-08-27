@@ -72,7 +72,7 @@ DAILY_COL_NAMES = {
     'CLOSE_PRICE': BINANCE_COL_NAMES['CLOSE_PRICE'],
     'VOLUME': BINANCE_COL_NAMES['VOLUME'],
     'NUMBER_OF_TRADES': BINANCE_COL_NAMES['NUMBER_OF_TRADES'],
-    'TAKER_BUY_BASE_ASSET_VOLUME': BINANCE_COL_NAMES['TAKER_BUY_BASE_VOLUME'],
+    'TAKER_BUY_BASE_VOLUME': BINANCE_COL_NAMES['TAKER_BUY_BASE_VOLUME'],
     'PERCENT_CHANGE': 'Percent Change',
 
     # =========================
@@ -84,20 +84,20 @@ DAILY_COL_NAMES = {
     'LD_CLOSE_PRICE': 'Last Day Close Price',
     'LD_VOLUME': 'Last Day Volume',
     'LD_NUMBER_OF_TRADES': 'Last Day Number of Trades',
-    'LD_TAKER_BUY_VOLUME': 'Last Day Taker Buy Volume',
-    'LD_PERCENTAGE_CHANGE': 'Last Day Percentage Change',
+    'LD_TAKER_BUY_BASE_VOLUME': 'Last Day Taker Buy Base Volume',
+    'LD_PERCENT_CHANGE': 'Last Day Percent Change',
 
     # =========================
     # 3. Last 3 Days Values
     # =========================
     'L3D_TOTAL_TRADES': 'Last 3 Days Total Trades',
-    'L3D_AVG_TAKER_BUY_VOLUME': 'Last 3 Days Avg Taker Buy Volume',
+    'L3D_AVG_TAKER_BUY_BASE_VOLUME': 'Last 3 Days Avg Taker Buy Base Volume',
 
     # =========================
     # 4. Last 7 Days Values
     # =========================
     'L7D_TOTAL_TRADES': 'Last 7 Days Total Trades',
-    'L7D_AVG_TAKER_BUY_VOLUME': 'Last 7 Days Avg Taker Buy Volume',
+    'L7D_AVG_TAKER_BUY_BASE_VOLUME': 'Last 7 Days Avg Taker Buy Base Volume',
 
     # =========================
     # 5. Simple Moving Averages (SMA)
@@ -207,7 +207,8 @@ CSV_PATHS = {
             'FET': path.join(BASE_PATH, 'data/crypto/fet_daily_data.csv')
         }
     },
-    'OPT_HP': path.join(BASE_PATH, 'data/opt_hp/best_params.csv')
+    'OPT_HP': path.join(BASE_PATH, 'data/opt_hp/best_params.csv'),
+    'PREDICTIONS': path.join(BASE_PATH, 'data/predictions/crypto_price_predictions.csv')
 }
 
 MODEL_PATHS = {

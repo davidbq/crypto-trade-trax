@@ -33,14 +33,16 @@ def build_weekly_metrics_df(df: DataFrame) -> DataFrame:
     return df[DAY_OF_WEEK_NAMES]
 
 def calculate_last_day_values(df: DataFrame) -> DataFrame:
+    df = df.copy()
+
     df[DAILY_COL_NAMES['LD_OPEN_PRICE']] = df[DAILY_COL_NAMES['OPEN_PRICE']].shift(1)
     df[DAILY_COL_NAMES['LD_HIGH_PRICE']] = df[DAILY_COL_NAMES['HIGH_PRICE']].shift(1)
     df[DAILY_COL_NAMES['LD_LOW_PRICE']] = df[DAILY_COL_NAMES['LOW_PRICE']].shift(1)
     df[DAILY_COL_NAMES['LD_CLOSE_PRICE']] = df[DAILY_COL_NAMES['CLOSE_PRICE']].shift(1)
     df[DAILY_COL_NAMES['LD_VOLUME']] = df[DAILY_COL_NAMES['VOLUME']].shift(1)
     df[DAILY_COL_NAMES['LD_NUMBER_OF_TRADES']] = df[DAILY_COL_NAMES['NUMBER_OF_TRADES']].shift(1)
-    df[DAILY_COL_NAMES['LD_TAKER_BUY_VOLUME']] = df[DAILY_COL_NAMES['TAKER_BUY_BASE_ASSET_VOLUME']].shift(1)
-    df[DAILY_COL_NAMES['LD_PERCENTAGE_CHANGE']] = df[DAILY_COL_NAMES['PERCENT_CHANGE']].shift(1)
+    df[DAILY_COL_NAMES['LD_TAKER_BUY_BASE_VOLUME']] = df[DAILY_COL_NAMES['TAKER_BUY_BASE_VOLUME']].shift(1)
+    df[DAILY_COL_NAMES['LD_PERCENT_CHANGE']] = df[DAILY_COL_NAMES['PERCENT_CHANGE']].shift(1)
 
     # RSI, Bollinger Bands, MACD, ATR, OBV, Momentum, ROC, Williams %R, Stochastic Oscillator
     df[DAILY_COL_NAMES['LD_RSI_14']] = df[DAILY_COL_NAMES['RSI_14']].shift(1)
@@ -66,14 +68,18 @@ def calculate_last_day_values(df: DataFrame) -> DataFrame:
     return df
 
 def calculate_last_3_7_day_values(df: DataFrame) -> DataFrame:
+    df = df.copy()
+
     df[DAILY_COL_NAMES['L3D_TOTAL_TRADES']] = df[DAILY_COL_NAMES['NUMBER_OF_TRADES']].rolling(window=3).sum().shift(1)
-    df[DAILY_COL_NAMES['L3D_AVG_TAKER_BUY_VOLUME']] = df[DAILY_COL_NAMES['TAKER_BUY_BASE_ASSET_VOLUME']].rolling(window=3).mean().shift(1)
+    df[DAILY_COL_NAMES['L3D_AVG_TAKER_BUY_BASE_VOLUME']] = df[DAILY_COL_NAMES['TAKER_BUY_BASE_VOLUME']].rolling(window=3).mean().shift(1)
 
     df[DAILY_COL_NAMES['L7D_TOTAL_TRADES']] = df[DAILY_COL_NAMES['NUMBER_OF_TRADES']].rolling(window=7).sum().shift(1)
-    df[DAILY_COL_NAMES['L7D_AVG_TAKER_BUY_VOLUME']] = df[DAILY_COL_NAMES['TAKER_BUY_BASE_ASSET_VOLUME']].rolling(window=7).mean().shift(1)
+    df[DAILY_COL_NAMES['L7D_AVG_TAKER_BUY_BASE_VOLUME']] = df[DAILY_COL_NAMES['TAKER_BUY_BASE_VOLUME']].rolling(window=7).mean().shift(1)
     return df
 
 def build_daily_metrics_df(df: DataFrame) -> DataFrame:
+    df = df.copy()
+
     df = add_technical_indicators(df)
     df[DAILY_COL_NAMES['PERCENT_CHANGE']] = ((df[DAILY_COL_NAMES['CLOSE_PRICE']] - df[DAILY_COL_NAMES['OPEN_PRICE']]) / df[DAILY_COL_NAMES['OPEN_PRICE']]) * 100
     df = calculate_last_day_values(df)
