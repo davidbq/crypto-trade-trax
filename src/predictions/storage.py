@@ -21,6 +21,7 @@ def save_predictions(predictions: List[Dict[str, Any]]):
         filename = CSV_PATHS['PREDICTIONS']
         df = DataFrame(predictions)
         df['Timestamp'] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        df.set_index('Timestamp', inplace=True)
         save_dataframe(df, filename)
     except Exception as e:
         error(f'An error occurred while saving predictions: {str(e)}')
