@@ -207,7 +207,7 @@ CSV_PATHS = {
             'FET': path.join(BASE_PATH, 'data/crypto/fet_daily_data.csv')
         }
     },
-    'OPT_HP': path.join(BASE_PATH, 'data/opt_hp/best_params.csv'),
+    'MODEL_TUNING_RESULTS': path.join(BASE_PATH, 'data/models/tuning_results.csv'),
     'PREDICTIONS': path.join(BASE_PATH, 'data/predictions/crypto_price_predictions.csv')
 }
 

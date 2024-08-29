@@ -1,20 +1,26 @@
 import pandas as pd
-from ..plotting.table import plot_dataframe
+from traceback import format_exc
+
 from ..config.logging import info
 from ..globals.constants import CSV_PATHS, BEST_PARAMS_DF_COL_NAMES
-
-CSV_PATH = CSV_PATHS['OPT_HP']
-MODEL_PATH = BEST_PARAMS_DF_COL_NAMES['MODEL_PATH']
+from ..plotting.table import plot_dataframe
 
 def load_best_params() -> pd.DataFrame:
-    return pd.read_csv(CSV_PATH, index_col='Timestamp', parse_dates=True)
+    df = pd.read_csv(CSV_PATHS['MODEL_TUNING_RESULTS'], keep_default_na=False)
+    return df.set_index('Timestamp').sort_index()
 
 def display_best_params() -> None:
-    df = load_best_params()
-    if df is not None and not df.empty:
-        plot_dataframe(df, f'Best Parameters for {CSV_PATH}')
-    else:
-        info(f'No data to display for {CSV_PATH}.')
+
+    try:
+        df = load_best_params()
+        if df.empty:
+            info(f'No data to display for {CSV_PATHS["MODEL_TUNING_RESULTS"]}.')
+        else:
+            df_sorted = df.sort_values(by=['Model Type', 'CV Score'], ascending=[False, True])
+            plot_dataframe(df_sorted, 'Best Parameters')
+    except Exception as e:
+        info(f'An error occurred while displaying best parameters: {str(e)}')
+        info(format_exc())
 
 if __name__ == "__main__":
     display_best_params()
