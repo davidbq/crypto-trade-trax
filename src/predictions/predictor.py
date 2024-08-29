@@ -1,9 +1,9 @@
-from typing import Dict, Any
-from ..config.logging import info
-from ..globals.constants import DAILY_COL_NAMES
 from datetime import datetime
 import traceback
-from logging import error
+from typing import Dict, Any
+
+from ..config.logging import info
+from ..globals.constants import DAILY_COL_NAMES
 
 def generate_predictions(crypto: str, models: Dict[str, Any], prediction_input: Any) -> Dict[str, Any]:
     try:
@@ -22,6 +22,6 @@ def generate_predictions(crypto: str, models: Dict[str, Any], prediction_input: 
         })
         return model_predictions
     except Exception as e:
-        error(f'An error occurred during prediction generation for {crypto}: {str(e)}')
-        error(traceback.format_exc())
+        info(f'An info occurred during prediction generation for {crypto}: {str(e)}')
+        info(traceback.format_exc())
         return None

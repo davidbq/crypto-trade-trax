@@ -1,24 +1,27 @@
-from pandas import DataFrame
-from typing import Dict, Any, List
-from os import path
-from ..globals.constants import CSV_PATHS
-from ..config.logging import info
 from datetime import datetime
-import traceback
 from logging import error
+from os import path
+from traceback import format_exc
+from typing import Any, Dict, List
 
-def save_predictions_to_csv(predictions: List[Dict[str, Any]]):
+from pandas import DataFrame, io
+
+from ..config.logging import info
+from ..globals.constants import CSV_PATHS
+
+def save_dataframe(df: DataFrame, csv_path: str) -> None:
     try:
-        now = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        df.to_csv(csv_path, mode='a', header=not io.common.file_exists(csv_path), index=False)
+    except Exception as e:
+        info(f'Error saving data: {e}')
+        info(format_exc())
+
+def save_predictions(predictions: List[Dict[str, Any]]):
+    try:
         filename = CSV_PATHS['PREDICTIONS']
-
-        df = DataFrame([predictions])
-        df.index = [now]
-        df.index.name = 'Timestamp'
-
-        df.to_csv(filename, mode='a', header=not path.isfile(filename))
-
-        info(f'Predictions saved to {filename}')
+        df = DataFrame(predictions)
+        df['Timestamp'] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        save_dataframe(df, filename)
     except Exception as e:
         error(f'An error occurred while saving predictions: {str(e)}')
-        error(traceback.format_exc())
+        error(format_exc())
