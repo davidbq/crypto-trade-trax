@@ -11,7 +11,7 @@ from ..globals.constants import CSV_PATHS
 
 def save_dataframe(df: DataFrame, csv_path: str) -> None:
     try:
-        df.to_csv(csv_path, mode='a', header=not io.common.file_exists(csv_path), index=False)
+        df.to_csv(csv_path, mode='a', header=not io.common.file_exists(csv_path))
     except Exception as e:
         info(f'Error saving data: {e}')
         info(format_exc())

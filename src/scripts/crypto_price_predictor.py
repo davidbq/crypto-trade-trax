@@ -20,8 +20,8 @@ def generate_and_save_predictions():
             error(f'Error processing {crypto}: {str(e)}')
             error(traceback.format_exc())
 
-        if all_predictions:
-            save_predictions(all_predictions)
+    if all_predictions:
+        save_predictions(all_predictions)
 
 if __name__ == '__main__':
     generate_and_save_predictions()
