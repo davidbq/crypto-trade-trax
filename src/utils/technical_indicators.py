@@ -1,4 +1,3 @@
-import pandas as pd
 from pandas import DataFrame
 from ..globals.constants import DAILY_COL_NAMES
 
