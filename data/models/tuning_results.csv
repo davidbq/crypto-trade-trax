@@ -2,4 +2,8 @@ Timestamp,Model Type,MAE (train),MAE (test),criterion,max_depth,n_estimators,n_j
 03-09-2024 23:04:10,DecisionTreeRegressor,0.0135380957468347,0.0269434118202569,friedman_mse,inf,,,85.0
 03-09-2024 23:04:21,DecisionTreeRegressor,580.9083015173765,753.5549217221134,absolute_error,inf,,,50.0
 03-09-2024 23:05:25,RandomForestRegressor,0.0093531777638453,0.0226989076858814,absolute_error,12.0,150.0,-1.0,
-03-09-2024 23:06:23,RandomForestRegressor,443.89360644360465,652.5103522504891,absolute_error,7,280,-1,
+03-09-2024 23:06:23,RandomForestRegressor,443.8936064436047,652.5103522504891,absolute_error,7.0,280.0,-1.0,
+04-09-2024 00:15:41,DecisionTreeRegressor,0.0135152779923542,0.0269039069343046,friedman_mse,inf,,,85.0
+04-09-2024 00:15:52,DecisionTreeRegressor,579.9380821917808,794.3950880626222,absolute_error,inf,,,50.0
+04-09-2024 00:16:55,RandomForestRegressor,0.0092974152882205,0.0226657136173767,absolute_error,12.0,150.0,-1.0,
+04-09-2024 00:17:41,RandomForestRegressor,442.6996487804022,670.9098707715971,absolute_error,7,280,-1,
