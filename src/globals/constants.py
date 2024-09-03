@@ -211,13 +211,26 @@ CSV_PATHS = {
     'PREDICTIONS': path.join(BASE_PATH, 'data/predictions/crypto_price_predictions.csv')
 }
 
+MODEL_TYPES = ['DTREE', 'RFOREST']
+CRYPTOCURRENCIES = ['BTC', 'FET']
+# PREDICTION_TARGETS = ['CLOSE_PRICE']
+
 MODEL_PATHS = {
-    'BTC': {
-        'DTREE': path.join(BASE_PATH, 'models/btc_dtree_close_price.joblib'),
-        'RFOREST': path.join(BASE_PATH, 'models/btc_rforest_close_price.joblib')
-    },
-    'FET': {
-        'DTREE': path.join(BASE_PATH, 'models/fet_dtree_close_price.joblib'),
-        'RFOREST': path.join(BASE_PATH, 'models/fet_rforest_close_price.joblib')
+    crypto: {
+        model_type: path.join(BASE_PATH, f'models/{crypto.lower()}_{model_type.lower()}_close_price.joblib')
+        for model_type in MODEL_TYPES
     }
+    for crypto in CRYPTOCURRENCIES
 }
+
+# Output example:
+# MODEL_PATHS = {
+#     'BTC': {
+#         'DTREE': path.join(BASE_PATH, 'models/btc_dtree_close_price.joblib'),
+#         'RFOREST': path.join(BASE_PATH, 'models/btc_rforest_close_price.joblib')
+#     },
+#     'FET': {
+#         'DTREE': path.join(BASE_PATH, 'models/fet_dtree_close_price.joblib'),
+#         'RFOREST': path.join(BASE_PATH, 'models/fet_rforest_close_price.joblib')
+#     }
+# }
