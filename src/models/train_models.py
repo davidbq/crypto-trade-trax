@@ -1,10 +1,13 @@
-from pandas import DataFrame, read_csv
+import asyncio
 from typing import Dict, Any
+
+from pandas import DataFrame, read_csv
+
+from ..config.logging import info
+from ..globals.constants import MODEL_PATHS, CSV_PATHS, DAILY_COL_NAMES
+from ..utils.df_modeling_preparation import prepare_daily_data_for_modeling
 from .dtree_trainer import train_dt_model
 from .rforest_trainer import train_rf_model
-from ..utils.df_modeling_preparation import prepare_daily_data_for_modeling
-from ..globals.constants import MODEL_PATHS, CSV_PATHS, DAILY_COL_NAMES
-from ..config.logging import info
 
 PARAM_GRIDS = {
     'BTC': {
@@ -17,6 +20,7 @@ PARAM_GRIDS = {
             'criterion': ['absolute_error'],
             'n_estimators': [280],
             'max_depth': [7],
+            'n_jobs': [-1]
         }
     },
     'FET': {
@@ -29,12 +33,18 @@ PARAM_GRIDS = {
             'criterion': ['absolute_error'],
             'n_estimators': [150],
             'max_depth': [12],
+            'n_jobs': [-1]
         }
     }
 }
 
+async def train_model(train_function, X, y, params, model_path, dataset_key, model_type):
+    info(f'Starting {model_type} model training for {dataset_key}')
+    await asyncio.to_thread(train_function, X, y, params, model_path)
+    info(f'Finished {model_type} model training for {dataset_key}')
 
-def train_models_for_dataset(df: DataFrame, param_grids: Dict[str, Dict[str, Any]], model_paths: Dict[str, str]) -> None:
+async def train_models_for_dataset(df: DataFrame, param_grids: Dict[str, Dict[str, Any]], model_paths: Dict[str, str], dataset_key: str) -> None:
+    info(f'Preparing data for {dataset_key}')
     df_cleaned = prepare_daily_data_for_modeling(df).dropna()
     X = df_cleaned.drop(columns=[DAILY_COL_NAMES['CLOSE_PRICE']])
     y = df_cleaned[DAILY_COL_NAMES['CLOSE_PRICE']]
@@ -44,23 +54,20 @@ def train_models_for_dataset(df: DataFrame, param_grids: Dict[str, Dict[str, Any
         'RFOREST': train_rf_model
     }
 
-    for model_type, train_function in model_types.items():
-        info(f'Starting model training type {model_type}')
-        train_function = train_dt_model if model_type == 'DTREE' else train_rf_model
-        train_function(X, y, param_grids[model_type], model_paths[model_type])
-        info(f'Completed model training type {model_type}')
+    await asyncio.gather(*[
+        train_model(train_function, X, y, param_grids[model_type], model_paths[model_type], dataset_key, model_type)
+        for model_type, train_function in model_types.items()
+    ])
 
-def train_all_models():
+async def train_all_models():
     datasets = {
         'BTC': CSV_PATHS['CRYPTO']['DAILY']['BTC'],
         'FET': CSV_PATHS['CRYPTO']['DAILY']['FET'],
     }
 
-    for key, path in datasets.items():
-        df = read_csv(path)
+    await asyncio.gather(*[
+        train_models_for_dataset(read_csv(path), PARAM_GRIDS[key], MODEL_PATHS[key], key)
+        for key, path in datasets.items()
+    ])
 
-        info(f'Starting model training for dataset: {key}')
-        train_models_for_dataset(df, PARAM_GRIDS[key], MODEL_PATHS[key])
-        info(f'Completed model training for dataset: {key}')
-
-    info('All models trained successfully.')
+    info('All models for all datasets trained successfully.')

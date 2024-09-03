@@ -2,7 +2,7 @@ import pandas as pd
 from traceback import format_exc
 
 from ..config.logging import info
-from ..globals.constants import CSV_PATHS, BEST_PARAMS_DF_COL_NAMES
+from ..globals.constants import CSV_PATHS
 from ..plotting.table import plot_dataframe
 
 def load_best_params() -> pd.DataFrame:
@@ -16,7 +16,7 @@ def display_best_params() -> None:
         if df.empty:
             info(f'No data to display for {CSV_PATHS["MODEL_TUNING_RESULTS"]}.')
         else:
-            df_sorted = df.sort_values(by=['Model Type', 'CV Score'], ascending=[False, True])
+            df_sorted = df.sort_values(by=['Model Type', 'MAE (test)'], ascending=[False, True])
             plot_dataframe(df_sorted, 'Best Parameters')
     except Exception as e:
         info(f'An error occurred while displaying best parameters: {str(e)}')
