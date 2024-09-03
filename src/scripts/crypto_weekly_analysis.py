@@ -1,7 +1,7 @@
 from pandas import read_csv
 from ..analysis.cosine_operations import build_cosine_sim_df, find_weekly_cosine_matches, get_subsequent_weeks_to_similarity
 from ..plotting.table import plot_dataframe
-from ..plotting.line import plot_similar_weeks, plot_following_weeks
+from ..analysis.plot import plot_similar_weeks, plot_following_weeks
 from ..globals.constants import CSV_PATHS, WEEKLY_COL_NAMES
 
 def run_analysis():
