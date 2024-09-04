@@ -16,7 +16,7 @@ def display_best_params() -> None:
         if df.empty:
             info(f'No data to display for {CSV_PATHS["MODEL_TUNING_RESULTS"]}.')
         else:
-            df_sorted = df.sort_values(by=['Model Type', 'MAE (test)'], ascending=[False, True])
+            df_sorted = df.sort_values(by=['Model Type', 'MAE CV'], ascending=[False, True])
             plot_dataframe(df_sorted, 'Best Parameters')
     except Exception as e:
         info(f'An error occurred while displaying best parameters: {str(e)}')

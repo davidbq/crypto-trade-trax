@@ -1,15 +1,8 @@
 from pandas import DataFrame, Series
-from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import cross_val_score
 
-def evaluate_model(model, X_train: DataFrame, y_train: Series, X_test: DataFrame, y_test: Series):
-    y_predict_train = model.predict(X_train)
-    y_predict_test = model.predict(X_test)
+def evaluate_model(model, X: DataFrame, y: Series):
+    cv_scores = cross_val_score(model, X, y, cv=5, scoring='neg_mean_absolute_error')
+    mae_cv = -cv_scores.mean()
 
-    mae_train = mean_absolute_error(y_train, y_predict_train)
-    mae_test = mean_absolute_error(y_test, y_predict_test)
-
-    return {
-        'mae_train': mae_train,
-        'mae_test': mae_test
-    }
+    return { 'mae_cv': mae_cv }

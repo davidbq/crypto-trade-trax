@@ -12,27 +12,27 @@ from .rforest_trainer import train_rf_model
 PARAM_GRIDS = {
     'BTC': {
         'DTREE': {
-            'criterion': ['absolute_error'],
             'max_depth': [None],
-            'max_leaf_nodes': [50]
+            'min_samples_split' :[50],
+            'max_leaf_nodes': [90]
         },
         'RFOREST': {
-            'criterion': ['absolute_error'],
-            'n_estimators': [280],
-            'max_depth': [7],
+            'n_estimators': [278],
+            'max_features': [0.5],
+            'max_depth': [6],
             'n_jobs': [-1]
         }
     },
     'FET': {
         'DTREE': {
-            'criterion': ['friedman_mse'],
             'max_depth': [None],
-            'max_leaf_nodes': [85]
+            'min_samples_split' :[50],
+            'max_leaf_nodes': [75]
         },
         'RFOREST': {
-            'criterion': ['absolute_error'],
-            'n_estimators': [150],
-            'max_depth': [12],
+            'n_estimators': [155],
+            'max_features': [0.8],
+            'max_depth': [15],
             'n_jobs': [-1]
         }
     }

@@ -19,13 +19,12 @@ def save_model(model: BaseEstimator, model_path: str) -> None:
 def _format_params(params: Dict[str, Any]) -> Dict[str, str]:
     return {k: str(v) if v is not None else float('inf') for k, v in params.items()}
 
-def create_tuning_result_row(model_type: str, best_params: Dict[str, Any], mae_train: float, mae_test: float) -> Dict[str, Any]:
+def create_tuning_result_row(model_type: str, best_params: Dict[str, Any], mae_cv: float) -> Dict[str, Any]:
     formatted_params = _format_params(best_params)
     return {
         'Timestamp': datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
         'Model Type': model_type,
-        'MAE (train)': mae_train,
-        'MAE (test)': mae_test,
+        'MAE CV': mae_cv,
         **formatted_params
     }
 
@@ -53,8 +52,8 @@ def _save_dataframe(df: pd.DataFrame, csv_path: str) -> None:
         info(f'Error saving data: {e}')
         info(format_exc())
 
-def save_model_tuning_results(model_type: str, best_params: Dict[str, Any], mae_train: float, mae_test: float) -> None:
+def save_model_tuning_results(model_type: str, best_params: Dict[str, Any], mae_cv: float) -> None:
     csv_path = CSV_PATHS['MODEL_TUNING_RESULTS']
-    row_data = create_tuning_result_row(model_type, best_params, mae_train, mae_test)
+    row_data = create_tuning_result_row(model_type, best_params, mae_cv)
     df = pd.DataFrame([row_data])
     _save_dataframe(df, csv_path)
