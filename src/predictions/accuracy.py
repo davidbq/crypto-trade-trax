@@ -20,20 +20,15 @@ def _compare_predictions(df_predictions: pd.DataFrame, df_actual: pd.DataFrame, 
 
         if not actual_row.empty:
             actual_price = actual_row['Close Price'].values[0]
-            dtree_pred = pred_row['DTREE']
-            rforest_pred = pred_row['RFOREST']
+            result = {'Date': pred_date, 'Actual': round(actual_price, 2)}
 
-            dtree_error = _calculate_error(dtree_pred, actual_price)
-            rforest_error = _calculate_error(rforest_pred, actual_price)
+            for model_type in MODEL_TYPES:
+                pred_price = pred_row[model_type]
+                error = _calculate_error(pred_price, actual_price)
+                result[model_type] = round(pred_price, 2)
+                result[f'{model_type}_Error%'] = round(error, 2)
 
-            results.append({
-                'Date': pred_date,
-                'Actual': round(actual_price, 2),
-                'DTREE': round(dtree_pred, 2),
-                'RFOREST': round(rforest_pred, 2),
-                'DTREE_Error%': round(dtree_error, 2),
-                'RFOREST_Error%': round(rforest_error, 2)
-            })
+            results.append(result)
 
     return pd.DataFrame(results)
 
@@ -46,7 +41,9 @@ def _calculate_average_errors(df_results: pd.DataFrame) -> Dict[str, float]:
 def analyze_prediction_accuracy(cryptos):
     df_predictions = pd.read_csv(CSV_PATHS['PREDICTIONS'])
     results = {}
-    avg_errors = {'Crypto': [], 'DTREE_Avg_Error%': [], 'RFOREST_Avg_Error%': []}
+    avg_errors = {'Crypto': []}
+    for model_type in MODEL_TYPES:
+        avg_errors[f'{model_type}_Avg_Error%'] = []
 
     for crypto in cryptos:
         df_crypto = pd.read_csv(CSV_PATHS['CRYPTO']['DAILY'][crypto])
@@ -57,8 +54,8 @@ def analyze_prediction_accuracy(cryptos):
 
         crypto_avg_errors = _calculate_average_errors(df_results)
         avg_errors['Crypto'].append(crypto)
-        avg_errors['DTREE_Avg_Error%'].append(crypto_avg_errors['DTREE'])
-        avg_errors['RFOREST_Avg_Error%'].append(crypto_avg_errors['RFOREST'])
+        for model_type in MODEL_TYPES:
+            avg_errors[f'{model_type}_Avg_Error%'].append(crypto_avg_errors[model_type])
 
     df_avg_errors = pd.DataFrame(avg_errors)
     plot_dataframe(df_avg_errors, 'Average Prediction Errors')

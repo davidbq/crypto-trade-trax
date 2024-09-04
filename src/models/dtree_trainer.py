@@ -1,5 +1,6 @@
-from sklearn.tree import DecisionTreeRegressor
 from pandas import DataFrame, Series
+from sklearn.tree import DecisionTreeRegressor
+
 from .base_trainer import train_and_save_model
 
 def train_dt_model(X: DataFrame, y: Series, param_grid: dict, model_path: str):

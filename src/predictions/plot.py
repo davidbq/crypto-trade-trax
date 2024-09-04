@@ -5,6 +5,8 @@ from plotly.express import line, bar
 from plotly.graph_objs import Figure
 from plotly.subplots import make_subplots
 
+from ..globals.constants import MODEL_PATHS
+
 def _create_melted_dataframe(df: DataFrame, id_vars: List[str], value_vars: List[str], var_name: str, value_name: str) -> DataFrame:
     return df.melt(id_vars=id_vars, value_vars=value_vars, var_name=var_name, value_name=value_name)
 
@@ -18,7 +20,7 @@ def _add_traces_to_subplot(fig: Figure, source_fig: Figure, row: int, col: int, 
         fig.add_trace(trace, row=row, col=col)
 
 def _update_layout_and_axes(fig: Figure, crypto: str):
-    fig.update_layout(height=800, title_text=f'{crypto} Predictions and Errors', legend_tracegroupgap=330)
+    fig.update_layout(height=800, title_text=f'{crypto} Predictions and Errors', legend_tracegroupgap=315)
     fig.update_xaxes(title_text='Date', row=1, col=1)
     fig.update_xaxes(title_text='Date', row=2, col=1)
     fig.update_yaxes(title_text=f'{crypto} Price', row=1, col=1)
@@ -26,15 +28,17 @@ def _update_layout_and_axes(fig: Figure, crypto: str):
 
 def plot_predictions_and_errors(results: Dict[str, DataFrame]) -> None:
     for crypto, df in results.items():
-        fig = make_subplots(rows=2, cols=1, subplot_titles=(f'{crypto} Price Predictions',f'{crypto} Prediction Error Percentages'))
+        model_types = list(MODEL_PATHS[crypto].keys())
+        fig = make_subplots(rows=2, cols=1, subplot_titles=(f'{crypto} Price Predictions', f'{crypto} Prediction Error Percentages'))
 
-        df_melted = _create_melted_dataframe(df, ['Date'], ['Actual', 'DTREE', 'RFOREST'], 'Prediction Type', 'Price')
+        df_melted = _create_melted_dataframe(df, ['Date'], ['Actual'] + model_types, 'Prediction Type', 'Price')
         price_fig = _create_line_plot(df_melted, 'Date', 'Price', 'Prediction Type',
                                      {'Price': f'{crypto} Price', 'Date': 'Date'},
                                      {'Date': '|%Y-%m-%d'})
         _add_traces_to_subplot(fig, price_fig, 1, 1, 'price')
 
-        df_error_melted = _create_melted_dataframe(df, ['Date'], ['DTREE_Error%', 'RFOREST_Error%'], 'Model', 'Error Percentage')
+        error_columns = [f'{model}_Error%' for model in model_types]
+        df_error_melted = _create_melted_dataframe(df, ['Date'], error_columns, 'Model', 'Error Percentage')
         error_fig = _create_line_plot(df_error_melted, 'Date', 'Error Percentage', 'Model',
                                      {'Error Percentage': 'Error %', 'Date': 'Date'},
                                      {'Date': '|%Y-%m-%d'})
@@ -44,8 +48,11 @@ def plot_predictions_and_errors(results: Dict[str, DataFrame]) -> None:
         fig.show()
 
 def plot_error_bars(avg_errors: DataFrame) -> None:
-    fig = bar(avg_errors, x='Crypto', y=['DTREE_Avg_Error%', 'RFOREST_Avg_Error%'],
-                 title='Average Error % by Crypto and Model',
-                 labels={'value': 'Average Error %', 'variable': 'Model'},
-                 barmode='group')
+    model_types = list(MODEL_PATHS[list(MODEL_PATHS.keys())[0]].keys())
+    error_columns = [f'{model}_Avg_Error%' for model in model_types]
+
+    fig = bar(avg_errors, x='Crypto', y=error_columns,
+              title='Average Error % by Crypto and Model',
+              labels={'value': 'Average Error %', 'variable': 'Model'},
+              barmode='group')
     fig.show()

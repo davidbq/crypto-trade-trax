@@ -1,5 +1,7 @@
-Timestamp,Model Type,MAE CV,max_depth,max_features,n_estimators,n_jobs,max_leaf_nodes,min_samples_split
-04-09-2024 14:51:51,DecisionTreeRegressor,0.1103514341860548,inf,,,,75.0,50.0
-04-09-2024 14:51:52,DecisionTreeRegressor,1224.9141349687206,inf,,,,90.0,50.0
-04-09-2024 14:52:01,RandomForestRegressor,0.1083496755465997,15.0,0.8,155.0,-1.0,,
-04-09-2024 14:52:03,RandomForestRegressor,930.2939705208549,6,0.5,278,-1,,
+Timestamp,Model Type,MAE CV,learning_rate,max_depth,n_estimators,n_jobs,max_features,max_leaf_nodes,min_samples_split
+04-09-2024 19:41:53,DecisionTreeRegressor,0.1103514341860548,,inf,,,,75.0,50.0
+04-09-2024 19:41:53,DecisionTreeRegressor,1224.9141349687206,,inf,,,,90.0,50.0
+04-09-2024 19:42:06,XGBRegressor,1006.8734059977372,0.1,3.0,53.0,-1.0,,,
+04-09-2024 19:42:06,RandomForestRegressor,0.1083496755465997,,15.0,155.0,-1.0,0.8,,
+04-09-2024 19:42:09,RandomForestRegressor,930.2939705208548,,6.0,278.0,-1.0,0.5,,
+04-09-2024 19:42:15,XGBRegressor,0.10453557044638846,0.08,2,290,-1,,,

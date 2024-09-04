@@ -211,7 +211,7 @@ CSV_PATHS = {
     'PREDICTIONS': path.join(BASE_PATH, 'data/predictions/crypto_price_predictions.csv')
 }
 
-MODEL_TYPES = ['DTREE', 'RFOREST']
+MODEL_TYPES = ['DTREE', 'RFOREST', 'XGBOOST']
 CRYPTOCURRENCIES = ['BTC', 'FET']
 
 MODEL_PATHS = {

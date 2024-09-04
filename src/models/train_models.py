@@ -8,6 +8,7 @@ from ..globals.constants import MODEL_PATHS, CSV_PATHS, DAILY_COL_NAMES
 from ..utils.df_modeling_preparation import prepare_daily_data_for_modeling
 from .dtree_trainer import train_dt_model
 from .rforest_trainer import train_rf_model
+from .xgboost_trainer import train_xgb_model
 
 PARAM_GRIDS = {
     'BTC': {
@@ -21,6 +22,12 @@ PARAM_GRIDS = {
             'max_features': [0.5],
             'max_depth': [6],
             'n_jobs': [-1]
+        },
+        'XGBOOST': {
+            'n_estimators': [53],
+            'max_depth': [3],
+            'learning_rate': [0.1],
+            'n_jobs': [-1]
         }
     },
     'FET': {
@@ -33,6 +40,12 @@ PARAM_GRIDS = {
             'n_estimators': [155],
             'max_features': [0.8],
             'max_depth': [15],
+            'n_jobs': [-1]
+        },
+        'XGBOOST': {
+            'n_estimators': [290],
+            'max_depth': [2],
+            'learning_rate': [0.08],
             'n_jobs': [-1]
         }
     }
@@ -51,7 +64,8 @@ async def train_models_for_dataset(df: DataFrame, param_grids: Dict[str, Dict[st
 
     model_types = {
         'DTREE': train_dt_model,
-        'RFOREST': train_rf_model
+        'RFOREST': train_rf_model,
+        'XGBOOST': train_xgb_model
     }
 
     await asyncio.gather(*[
